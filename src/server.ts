@@ -57,5 +57,5 @@ export const startFtpServer = async (host: string, port: number, user: string, p
     }, 
   }; 
 }; 
-
+console.log(`${ipAddress}:${port}`)
 startFtpServer(ipAddress,parseInt(port),'admin','admin');
