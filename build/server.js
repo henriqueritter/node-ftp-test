@@ -12,14 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.startFtpServer = void 0;
 const ftpServer = require('ftp-srv');
 const bunyan = require('bunyan');
+const ipAddress = process.env.IP || '127.0.0.1';
+const port = process.env.PORT || '8001';
 const startFtpServer = (host, port, user, pass) => __awaiter(void 0, void 0, void 0, function* () {
     const quietLog = bunyan.createLogger({
         name: 'quiet-logger',
         level: 60,
     });
     const server = new ftpServer({
-        url: 'ftp://0.0.0.0:8001',
-        pasv_url: 'ftp://0.0.0.0:8001',
+        url: `ftp://${ipAddress}:${port}`,
+        pasv_url: `ftp://${ipAddress}:${port}`,
         pasv_range: '8000-8500', // change this to an open port range for your app
     });
     /*  const server = new ftpServer(`ftp://${host}:${port}`, {
@@ -61,5 +63,5 @@ const startFtpServer = (host, port, user, pass) => __awaiter(void 0, void 0, voi
     };
 });
 exports.startFtpServer = startFtpServer;
-(0, exports.startFtpServer)('127.0.0.1', 22, 'admin', 'admin');
+(0, exports.startFtpServer)(ipAddress, parseInt(port), 'admin', 'admin');
 //# sourceMappingURL=server.js.map

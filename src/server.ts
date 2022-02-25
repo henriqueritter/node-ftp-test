@@ -1,6 +1,8 @@
 const ftpServer = require('ftp-srv'); 
 const bunyan = require('bunyan'); 
 
+const ipAddress = process.env.IP || '127.0.0.1';
+const port = process.env.PORT || '8001'
 
 export const startFtpServer = async (host: string, port: number, user: string, pass: string) => {  
   const quietLog = bunyan.createLogger({ 
@@ -9,8 +11,8 @@ export const startFtpServer = async (host: string, port: number, user: string, p
   }); 
   
   const server = new ftpServer({
-    url: 'ftp://127.0.0.1:8001',
-    pasv_url: 'ftp://127.0.0.1:8001',
+    url: `ftp://${ipAddress}:${port}`,
+    pasv_url: `ftp://${ipAddress}:${port}`,
     pasv_range: '8000-8500', // change this to an open port range for your app
     });
     
@@ -56,4 +58,4 @@ export const startFtpServer = async (host: string, port: number, user: string, p
   }; 
 }; 
 
-startFtpServer('127.0.0.1',22,'admin','admin');
+startFtpServer(ipAddress,parseInt(port),'admin','admin');
